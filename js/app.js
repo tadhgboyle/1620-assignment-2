@@ -1,9 +1,40 @@
 /**
+ * Array for note storage.
+ */
+const noteArray = [
+    {
+        title: 'Note 1',
+        content: 'This is note #1!'
+    },
+    {
+        title: 'Note 2',
+        content: 'This is note #2!'
+    },
+    {
+        title: 'Note 3',
+        content: 'This is note #3!'
+    },
+];
+
+/**
+ * Default theme to use when page loads.
+ * Can be either 'light' or 'dark'
+ */
+let theme = 'light';
+
+/**
  * Toggle the application's colour theme.
  * Can be either light or dark.
  */
 function toggleTheme() {
 
+}
+
+/**
+ * Get the application's current colour theme name.
+ */
+function getTheme() {
+    
 }
 
 /**
@@ -42,4 +73,13 @@ function listNotes() {
  */
 function getNoteByTitle(title) {
 
+}
+
+/**
+ * When the page loads:
+ *     - Set the side bar of all notes
+ *     - Set the theme switcher button text
+ */
+window.onload = () => {
+    
 }
