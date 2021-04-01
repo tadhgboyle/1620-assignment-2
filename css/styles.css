@@ -21,7 +21,7 @@ body {
 
 /* General text rules */
 
-p, a, li {
+p, a, li, button {
     color: var(--main-text);
     font-family: 'Roboto Mono', monospace;
     text-decoration: none;
@@ -93,8 +93,15 @@ nav>ul {
     text-align: right;
 }
 
-.note-buttons>a {
-    padding: 10px 10px;
+.note-buttons>button {
+    padding: 5px 10px;
+    border: none;
+    background: none;
+    font-size: large;
+}
+
+.note-buttons>button:hover {
+    text-decoration: underline;
 }
 
 .note-buttons>.delete {
