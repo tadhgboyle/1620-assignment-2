@@ -162,10 +162,20 @@ footer {
 }
 
 @media (max-width: 600px) {
-    .new-note {
-        display: none;
+    .wrapper {
+        grid-template-areas: "b ." "a .";
     }
-    .use-desktop {
-        display: block;
+    .hamburger-menu {
+        min-height: 20vh;
+        max-height: 10vh;
+        
+        width: 100%;
+        position: fixed;
+    }
+    .new-note {
+        margin-left: 0px;
+    }
+    .new-note>textarea {
+        padding-top: 50px;
     }
 }
