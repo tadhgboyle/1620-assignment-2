@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/styles.css">
+    <script src="./js/app.js"></script>
     <title>Note-ly</title>
 </head>
 
@@ -20,16 +21,40 @@
 
 
     <section class="wrapper">
-        <div class="hamburger-button">
-            <div class="line"></div>
-            <div class="line"></div>
-            <div class="line"></div>
+
+        <!-- Clicking this will open the hamburger-menu -->
+        <div class="hamburger-button" id="hamburger-button">
+            <div onclick="toggleNoteList();">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
         </div>
 
-        <div class="new-note">
-            <i class="plus"></i>
-            <p><a href="./note.html">create new note</a></p>
+        <!-- To be hidden when page initially loads -->
+        <div class="hamburger-menu" id="hamburger-menu">
+            <p><strong onclick="toggleNoteList();">my notes</strong></p>
+            <ul class="note-list">
+                <div id="note-list-items"></div>
+            </ul>
         </div>
+
+        <!-- Clicking this will open the new-note -->
+        <div class="new-note" id="new-note-button">
+            <i class="plus"></i>
+            <button onclick="toggleNoteArea();">create new note</button>
+        </div>
+
+        <!-- To be hidden when page initially loads -->
+        <div class="new-note" id="new-note">
+            <input type="text" id="note_title" placeholder="note title">
+            <textarea name="note" id="note_content" cols="50" rows="20" placeholder="your note here"></textarea>
+            <div class="note-buttons">
+                <button class="save" onclick="saveNote();">save</button>
+                <button class="delete" onclick="toggleNoteArea();">delete</button>
+            </div>
+        </div>
+
     </section>
 
 

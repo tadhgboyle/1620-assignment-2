@@ -1,3 +1,25 @@
+
+/**
+ * HTML element variables
+ */
+let hamburger_menu = null;
+let new_note_button = null;
+let new_note = null;
+let note_list_items = null;
+let note_title = null;
+let note_content = null;
+
+/**
+ * Whether the notepad area and buttons are shown.
+ * If false, the `new_note_button` div will be shown instead
+ */
+let note_area_open = false;
+
+/**
+ * Whether the hamburger menu sidebar is shown.
+ */
+let note_list_open = false;
+
 /**
  * Array for note storage.
  */
@@ -43,10 +65,9 @@ function getTheme() {
  *     - "New Note" - toggle note area on
  *     - "Save" + "Cancel" - both will toggle area off
  * 
- *  @param {Boolean} viewing Whether they are viewing an existing note or creating a new one
  *  @param {String} title Title of note to load note area with
  */
-function toggleNoteArea(viewing, title = null) {
+function toggleNoteArea(title = null) {
     // Will need another global variable `noteArea`
     // If `noteArea` is true, set it to false
     //  - then hide the note area
@@ -54,19 +75,67 @@ function toggleNoteArea(viewing, title = null) {
     //  - Show note area
     //      - Are they viewing a note? If yes, show <p></p> with note contents
     //      - Are they editing a note? If yes, show a text area with note contents
+    if (title != null) {
+    } else {
+        if (note_area_open) {
+            new_note.style.visibility = 'hidden';
+            new_note_button.style.visibility = 'initial';
+        } else {
+            new_note.style.visibility = 'initial';
+            new_note_button.style.visibility = 'hidden';
+        }
+
+        note_area_open = !note_area_open;
+    }
+}
+
+/**
+ * Toggle visibility of the note list sidebar
+ */
+function toggleNoteList() {
+    if (note_list_open) {
+        hamburger_menu.style.visibility = 'hidden';
+    } else {
+        hamburger_menu.style.visibility = 'initial';
+    }
+
+    note_list_open = !note_list_open;
 }
 
 /**
  * Create a new note.
- * 
- * @param {String} title Unique title for this note
- * @param {String} content Content to be saved
  */
-function saveNote(title, content) {
-    // Get values of textarea and title elements via `document.getElementById()`
-    // Store to `noteArray`
-    // Reload sidebar of notes
-    // Reload note area to view their new note via `toggleNoteArea(true, title)`
+function saveNote() {
+    // TODO: Reload note area to view their new note via `toggleNoteArea(true, title)`
+    title = note_title.value;
+
+    if (title === '') {
+        alert('Please enter a title!');
+        return;
+    }
+
+    content = note_content.value;
+
+    if (content == '') {
+        alert('Please enter content!');
+        return;
+    }
+
+    if (getNoteByTitle(title) !== undefined) {
+        alert('A Note with that title already exists!');
+        return;
+    }
+
+    noteArray.push({
+        title: title,
+        content: content
+    });
+
+    note_title.value = '';
+    note_content.value = '';
+
+    listNotes();
+    toggleNoteArea();
 }
 
 /**
@@ -74,9 +143,13 @@ function saveNote(title, content) {
  * This will directly output an HTML string which can be used in an elements `innerHtml`
  */
 function listNotes() {
-    // Loop all notes in `noteArray`
-    // Append string html <li></li> to output string
-    // Return output string for loading in sidebar
+    output = '';
+
+    noteArray.forEach(note => {
+        output += ('<li class="note-list-item" onclick="getNoteByTitle(' + note.title + ')">' + note.title + '</li>');
+    });
+
+    note_list_items.innerHTML = output;
 }
 
 /**
@@ -92,10 +165,25 @@ function getNoteByTitle(title) {
 
 /**
  * When the page loads:
+ *     - Initialize our element variables for easy reuse
+ *     - Hide elements which require being manually opened
  *     - Set the sidebar of all notes
  *     - Set the theme switcher button text
  */
 window.onload = () => {
-    // use `listNotes()` to populate sidebar
-    // use `getTheme()` to get theme string name and load into theme button
+    // TODO: use `getTheme()` to get theme string name and load into theme button
+    hamburger_menu = document.getElementById('hamburger-menu');
+    hamburger_menu.style.visibility = 'hidden';
+
+    new_note_button = document.getElementById('new-note-button');
+
+    new_note = document.getElementById('new-note');
+    new_note.style.visibility = 'hidden';
+
+    note_list_items = document.getElementById('note-list-items');
+
+    note_title = document.getElementById('note_title');
+    note_content = document.getElementById('note_content');
+
+    listNotes();
 }

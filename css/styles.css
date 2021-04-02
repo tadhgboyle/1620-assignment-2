@@ -65,27 +65,44 @@ nav>ul {
     /* Janky, undo padding which the burger menu gave */
 }
 
-.new-note>p {
+.new-note>button {
     padding-top: 8px;
     display: inline-block;
+    border: none;
+    background: none;
+    font-size: large;
+}
+
+.new-note>button:hover {
+    text-decoration: underline;
+}
+
+.new-note>input {
+    width: 480px;
+    position: fixed;
+    margin-top: 260px;
+    padding-bottom: 5px;
+}
+
+.new-note>input::placeholder {
+    font-size: small;
 }
 
 .new-note>textarea {
+    margin-top: 300px;
+}
+
+.new-note>textarea, .new-note>input {
     padding-top: 5px;
     padding-left: 10px;
     font-family: 'Roboto Mono', monospace;
     background-color: var(--textarea-background);
     color: var(--secondary-text);
-    margin-top: 300px;
     border: none;
 }
 
-.new-note>textarea:focus {
+.new-note>textarea:focus, .new-note>input:focus {
     outline: 3px solid var(--secondary-background);
-}
-
-.use-desktop {
-    display: none;
 }
 
 .note-buttons {
@@ -142,6 +159,10 @@ nav>ul {
     list-style-type: disc;
 }
 
+.note-list-item:hover {
+    text-decoration: underline;
+}
+
 /* Three lines stacked will create hamburger icon */
 
 .line {
@@ -168,7 +189,6 @@ footer {
     .hamburger-menu {
         min-height: 20vh;
         max-height: 10vh;
-        
         width: 100%;
         position: fixed;
     }
