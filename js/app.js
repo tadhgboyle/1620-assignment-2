@@ -2,16 +2,19 @@
 /**
  * HTML element variables
  */
-let hamburger_menu = null;
-let new_note_button = null;
-let new_note = null;
-let note_list_items = null;
-let note_title = null;
-let note_content = null;
+let HAMBURGER_MENU = null;
+let NEW_NOTE_BUTTON = null;
+let NEW_NOTE = null;
+let NOTE_LIST_ITEMS = null;
+let NOTE_TITLE = null;
+let NOTE_CONTENT = null;
+let NOTE_VIEW = null;
+let NOTE_VIEW_TITLE = null;
+let NOTE_VIEW_CONTENT = null;
 
 /**
  * Whether the notepad area and buttons are shown.
- * If false, the `new_note_button` div will be shown instead
+ * If false, the `NEW_NOTE_BUTTON` div will be shown instead
  */
 let note_area_open = false;
 
@@ -35,7 +38,7 @@ const noteArray = [
     {
         title: 'Note 3',
         content: 'This is note #3!'
-    },
+    }
 ];
 
 /**
@@ -67,36 +70,56 @@ function getTheme() {
  * 
  *  @param {String} title Title of note to load note area with
  */
-function toggleNoteArea(title = null) {
-    // Will need another global variable `noteArea`
-    // If `noteArea` is true, set it to false
-    //  - then hide the note area
-    // Else, 
-    //  - Show note area
-    //      - Are they viewing a note? If yes, show <p></p> with note contents
-    //      - Are they editing a note? If yes, show a text area with note contents
-    if (title != null) {
-    } else {
-        if (note_area_open) {
-            new_note.style.visibility = 'hidden';
-            new_note_button.style.visibility = 'initial';
-        } else {
-            new_note.style.visibility = 'initial';
-            new_note_button.style.visibility = 'hidden';
-        }
+function toggleNoteArea(force = false) {
+    // TODO: use "hidden" class with short animation?
 
-        note_area_open = !note_area_open;
+    if (note_area_open || force) {
+        NEW_NOTE.style.visibility = 'hidden';
+        NEW_NOTE_BUTTON.style.visibility = 'initial';
+    } else {
+        NEW_NOTE.style.visibility = 'initial';
+        NEW_NOTE_BUTTON.style.visibility = 'hidden';
     }
+
+    NOTE_VIEW.style.visibility = 'hidden';
+
+    if (force) {
+        note_area_open = false;
+        return;
+    }
+
+    note_area_open = !note_area_open;
+}
+
+function viewNote(title) {
+
+    toggleNoteArea(true);
+
+    note = getNoteByTitle(title);
+
+    NOTE_VIEW.style.visibility = 'initial';
+    NEW_NOTE_BUTTON.style.visibility = 'hidden';
+
+    NOTE_VIEW_TITLE.innerHTML = note.title;
+    NOTE_VIEW_CONTENT.innerHTML = note.content;
+}
+
+function hideNote() {
+
+    NOTE_VIEW.style.visibility = 'hidden';
+    NEW_NOTE_BUTTON.style.visibility = 'initial';
+
 }
 
 /**
  * Toggle visibility of the note list sidebar
  */
 function toggleNoteList() {
+    // TODO: use "hidden" class with short animation?
     if (note_list_open) {
-        hamburger_menu.style.visibility = 'hidden';
+        HAMBURGER_MENU.style.visibility = 'hidden';
     } else {
-        hamburger_menu.style.visibility = 'initial';
+        HAMBURGER_MENU.style.visibility = 'initial';
     }
 
     note_list_open = !note_list_open;
@@ -107,21 +130,21 @@ function toggleNoteList() {
  */
 function saveNote() {
     // TODO: Reload note area to view their new note via `toggleNoteArea(true, title)`
-    title = note_title.value;
+    title = NOTE_TITLE.value.trim();
 
-    if (title === '') {
+    if (title == '') {
         alert('Please enter a title!');
         return;
     }
 
-    content = note_content.value;
+    content = NOTE_CONTENT.value;
 
     if (content == '') {
         alert('Please enter content!');
         return;
     }
 
-    if (getNoteByTitle(title) !== undefined) {
+    if (getNoteByTitle(title) != undefined) {
         alert('A Note with that title already exists!');
         return;
     }
@@ -131,11 +154,11 @@ function saveNote() {
         content: content
     });
 
-    note_title.value = '';
-    note_content.value = '';
+    NOTE_TITLE.value = '';
+    NOTE_CONTENT.value = '';
 
     listNotes();
-    toggleNoteArea();
+    viewNote(title);
 }
 
 /**
@@ -146,10 +169,10 @@ function listNotes() {
     output = '';
 
     noteArray.forEach(note => {
-        output += ('<li class="note-list-item" onclick="getNoteByTitle(' + note.title + ')">' + note.title + '</li>');
+        output += `<li class="note-list-item" onclick="viewNote('${note.title}')">${note.title}</li>`;
     });
 
-    note_list_items.innerHTML = output;
+    NOTE_LIST_ITEMS.innerHTML = output;
 }
 
 /**
@@ -159,8 +182,14 @@ function listNotes() {
  * @param {String} title Title of note to find
  */
 function getNoteByTitle(title) {
-    // Loop notes in `noteArray` until the title matches
-    // If title doesnt match, return `undefined`
+
+    for (note of noteArray) {
+        if (note.title == title) {
+            return note;
+        }
+    }
+
+    return undefined;
 }
 
 /**
@@ -172,18 +201,23 @@ function getNoteByTitle(title) {
  */
 window.onload = () => {
     // TODO: use `getTheme()` to get theme string name and load into theme button
-    hamburger_menu = document.getElementById('hamburger-menu');
-    hamburger_menu.style.visibility = 'hidden';
+    HAMBURGER_MENU = document.getElementById('hamburger-menu');
+    HAMBURGER_MENU.style.visibility = 'hidden';
 
-    new_note_button = document.getElementById('new-note-button');
+    NEW_NOTE_BUTTON = document.getElementById('new-note-button');
 
-    new_note = document.getElementById('new-note');
-    new_note.style.visibility = 'hidden';
+    NEW_NOTE = document.getElementById('new-note');
+    NEW_NOTE.style.visibility = 'hidden';
 
-    note_list_items = document.getElementById('note-list-items');
+    NOTE_LIST_ITEMS = document.getElementById('note-list-items');
 
-    note_title = document.getElementById('note_title');
-    note_content = document.getElementById('note_content');
+    NOTE_TITLE = document.getElementById('note_title');
+    NOTE_CONTENT = document.getElementById('note_content');
+
+    NOTE_VIEW = document.getElementById('note-view');
+    NOTE_VIEW.style.visibility = 'hidden';
+    NOTE_VIEW_TITLE = document.getElementById('note-view-title');
+    NOTE_VIEW_CONTENT = document.getElementById('note-view-content');
 
     listNotes();
 }

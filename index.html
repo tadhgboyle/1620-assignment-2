@@ -23,6 +23,7 @@
     <section class="wrapper">
 
         <!-- Clicking this will open the hamburger-menu -->
+        <!-- TODO: rotate 90 degrees on hover? -->
         <div class="hamburger-button" id="hamburger-button">
             <div onclick="toggleNoteList();">
                 <div class="line"></div>
@@ -40,18 +41,27 @@
         </div>
 
         <!-- Clicking this will open the new-note -->
-        <div class="new-note" id="new-note-button">
+        <div class="note-area" id="new-note-button">
             <i class="plus"></i>
             <button onclick="toggleNoteArea();">create new note</button>
         </div>
 
         <!-- To be hidden when page initially loads -->
-        <div class="new-note" id="new-note">
+        <div class="note-area" id="new-note">
             <input type="text" id="note_title" placeholder="note title">
             <textarea name="note" id="note_content" cols="50" rows="20" placeholder="your note here"></textarea>
             <div class="note-buttons">
                 <button class="save" onclick="saveNote();">save</button>
                 <button class="delete" onclick="toggleNoteArea();">delete</button>
+            </div>
+        </div>
+
+        <!-- To be hidden when page initially loads -->
+        <div class="note-area" id="note-view">
+            <p id="note-view-title"><strong></strong></p>
+            <pre id="note-view-content"></pre>
+            <div class="note-buttons">
+                <button class="save" onclick="hideNote();">close</button>
             </div>
         </div>
 

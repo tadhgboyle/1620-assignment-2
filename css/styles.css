@@ -57,7 +57,7 @@ nav>ul {
 
 /* Make the "+ create new note" button reside in the center of the main section */
 
-.new-note {
+.note-area {
     grid-area: a;
     align-self: center;
     justify-self: center;
@@ -65,7 +65,7 @@ nav>ul {
     /* Janky, undo padding which the burger menu gave */
 }
 
-.new-note>button {
+.note-area>button {
     padding-top: 8px;
     display: inline-block;
     border: none;
@@ -73,26 +73,26 @@ nav>ul {
     font-size: large;
 }
 
-.new-note>button:hover {
+.note-area>button:hover {
     text-decoration: underline;
 }
 
-.new-note>input {
+.note-area>input {
     width: 480px;
     position: fixed;
     margin-top: 260px;
     padding-bottom: 5px;
 }
 
-.new-note>input::placeholder {
+.note-area>input::placeholder {
     font-size: small;
 }
 
-.new-note>textarea {
+.note-area>textarea {
     margin-top: 300px;
 }
 
-.new-note>textarea, .new-note>input {
+.note-area>textarea, .note-area>input {
     padding-top: 5px;
     padding-left: 10px;
     font-family: 'Roboto Mono', monospace;
@@ -101,7 +101,7 @@ nav>ul {
     border: none;
 }
 
-.new-note>textarea:focus, .new-note>input:focus {
+.note-area>textarea:focus, .note-area>input:focus {
     outline: 3px solid var(--secondary-background);
 }
 
@@ -192,10 +192,10 @@ footer {
         width: 100%;
         position: fixed;
     }
-    .new-note {
+    .note-area {
         margin-left: 0px;
     }
-    .new-note>textarea {
+    .note-area>textarea {
         padding-top: 50px;
     }
 }
