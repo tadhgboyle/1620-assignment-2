@@ -48,17 +48,17 @@ const noteArray = [
  * Can be either 'light' or 'dark'.
  * Whatever this is set to is the default for when the page loads.
  */
-let theme = 'light';
+let THEME = 'light';
 
 /**
  * Toggle the application's colour theme.
  */
 function toggleTheme() {
 
-    if (theme == 'light') {
-        theme = 'dark';
+    if (THEME == 'light') {
+        THEME = 'dark';
     } else {
-        theme = 'light';
+        THEME = 'light';
     }
 
     renderTheme();
@@ -69,9 +69,9 @@ function toggleTheme() {
  */
 function renderTheme() {
 
-    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.setAttribute('data-theme', THEME);
 
-    setValue(THEME_BUTTON, `theme: ${theme}`);
+    setValue(THEME_BUTTON, `theme: ${THEME}`);
 }
 
 /**

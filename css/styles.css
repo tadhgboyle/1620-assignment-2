@@ -94,6 +94,7 @@ nav>ul {
 
 .note-area>button:hover {
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .note-area>input {
@@ -149,6 +150,7 @@ pre {
     border: none;
     background: none;
     font-size: large;
+    cursor: pointer;
 }
 
 .note-buttons>button:hover {
@@ -176,6 +178,10 @@ pre {
     padding-left: 10px;
 }
 
+.hamburger-button>div {
+    cursor: pointer;
+}
+
 .hamburger-menu {
     grid-area: b;
     text-align: center;
@@ -186,6 +192,10 @@ pre {
 .hamburger-menu>p {
     margin-top: 15px;
     margin-bottom: 15px;
+    cursor: pointer;
+}
+
+.hamburger-menu>p>strong {
     text-decoration: underline;
 }
 
@@ -195,6 +205,7 @@ pre {
 
 .note-list-item:hover {
     text-decoration: underline;
+    cursor: pointer;
 }
 
 /* Three lines stacked will create hamburger icon */
