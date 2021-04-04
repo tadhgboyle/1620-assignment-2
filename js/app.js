@@ -45,7 +45,8 @@ const noteArray = [
 
 /**
  * Default theme to use when page loads.
- * Can be either 'light' or 'dark'
+ * Can be either 'light' or 'dark'.
+ * Whatever this is set to is the default for when the page loads.
  */
 let theme = 'light';
 
@@ -59,6 +60,14 @@ function toggleTheme() {
     } else {
         theme = 'light';
     }
+
+    renderTheme();
+}
+
+/**
+ * Apply the current colour theme.
+ */
+function renderTheme() {
 
     document.documentElement.setAttribute('data-theme', theme);
 
@@ -256,7 +265,6 @@ function setValue(element, value = '', html = false) {
 window.onload = () => {
 
     THEME_BUTTON = document.getElementById('theme-button');
-    setValue(THEME_BUTTON, `theme: ${theme}`);
 
     HAMBURGER_MENU = document.getElementById('hamburger-menu');
     hideElement(HAMBURGER_MENU, false);
@@ -276,5 +284,6 @@ window.onload = () => {
     NOTE_VIEW_TITLE = document.getElementById('note-view-title');
     NOTE_VIEW_CONTENT = document.getElementById('note-view-content');
 
+    renderTheme();
     listNotes();
 }
