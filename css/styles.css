@@ -105,6 +105,19 @@ nav>ul {
     outline: 3px solid var(--secondary-background);
 }
 
+/* pre tag styling from https://www.longren.io/wrapping-text-inside-pre-tags/ */
+pre {
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+}
+
+.note-view {
+    max-width: 25%;
+}
+
 .note-buttons {
     margin-top: 5px;
     text-align: right;
@@ -156,7 +169,7 @@ nav>ul {
 }
 
 .note-list {
-    list-style-type: disc;
+    list-style-type: circle;
 }
 
 .note-list-item:hover {

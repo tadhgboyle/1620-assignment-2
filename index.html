@@ -33,6 +33,7 @@
         </div>
 
         <!-- To be hidden when page initially loads -->
+        <!-- TODO: "x" to close button -->
         <div class="hamburger-menu" id="hamburger-menu">
             <p><strong onclick="toggleNoteList();">my notes</strong></p>
             <ul class="note-list">
@@ -48,8 +49,8 @@
 
         <!-- To be hidden when page initially loads -->
         <div class="note-area" id="new-note">
-            <input type="text" id="note_title" placeholder="note title">
-            <textarea name="note" id="note_content" cols="50" rows="20" placeholder="your note here"></textarea>
+            <input type="text" id="note-title" placeholder="note title">
+            <textarea name="note" id="note-content" cols="50" rows="20" placeholder="your note here"></textarea>
             <div class="note-buttons">
                 <button class="save" onclick="saveNote();">save</button>
                 <button class="delete" onclick="toggleNoteArea();">delete</button>
@@ -57,7 +58,7 @@
         </div>
 
         <!-- To be hidden when page initially loads -->
-        <div class="note-area" id="note-view">
+        <div class="note-area note-view" id="note-view">
             <p id="note-view-title"><strong></strong></p>
             <pre id="note-view-content"></pre>
             <div class="note-buttons">

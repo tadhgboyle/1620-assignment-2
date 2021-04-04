@@ -25,19 +25,20 @@ let note_list_open = false;
 
 /**
  * Array for note storage.
+ * Hardcoded 3 notes.
  */
 const noteArray = [
     {
         title: 'Note 1',
-        content: 'This is note #1!'
+        content: 'I am note 1 :D'
     },
     {
         title: 'Note 2',
-        content: 'This is note #2!'
+        content: 'I am note 2 :)'
     },
     {
         title: 'Note 3',
-        content: 'This is note #3!'
+        content: 'I am note 3 (:'
     }
 ];
 
@@ -64,24 +65,21 @@ function getTheme() {
 
 /**
  * Toggle visibility of note textbox and title.
- * Usage:
- *     - "New Note" - toggle note area on
- *     - "Save" + "Cancel" - both will toggle area off
  * 
- *  @param {String} title Title of note to load note area with
+ *  @param {Boolean} force If true, this will re-run closing styles, even if it is already closed.
  */
 function toggleNoteArea(force = false) {
     // TODO: use "hidden" class with short animation?
 
     if (note_area_open || force) {
-        NEW_NOTE.style.visibility = 'hidden';
-        NEW_NOTE_BUTTON.style.visibility = 'initial';
+        hideElement(NEW_NOTE);
+        showElement(NEW_NOTE_BUTTON);
     } else {
-        NEW_NOTE.style.visibility = 'initial';
-        NEW_NOTE_BUTTON.style.visibility = 'hidden';
+        showElement(NEW_NOTE);
+        hideElement(NEW_NOTE_BUTTON);
     }
 
-    NOTE_VIEW.style.visibility = 'hidden';
+    hideElement(NOTE_VIEW);
 
     if (force) {
         note_area_open = false;
@@ -91,24 +89,35 @@ function toggleNoteArea(force = false) {
     note_area_open = !note_area_open;
 }
 
+/**
+ * View a note
+ * 
+ * @param {String} title Title of note to view
+ */
 function viewNote(title) {
 
     toggleNoteArea(true);
 
-    note = getNoteByTitle(title);
+    showElement(NOTE_VIEW);
+    hideElement(NEW_NOTE_BUTTON);
 
-    NOTE_VIEW.style.visibility = 'initial';
-    NEW_NOTE_BUTTON.style.visibility = 'hidden';
+    const note = getNoteByTitle(title);
 
     NOTE_VIEW_TITLE.innerHTML = note.title;
     NOTE_VIEW_CONTENT.innerHTML = note.content;
 }
 
+/**
+ * Hide note view div.
+ * Shows default "create new note" button once closed.
+ */
 function hideNote() {
 
-    NOTE_VIEW.style.visibility = 'hidden';
-    NEW_NOTE_BUTTON.style.visibility = 'initial';
+    hideElement(NOTE_VIEW);
+    NOTE_VIEW_TITLE.innerHTML = '';
+    NOTE_VIEW_CONTENT.innerHTML = '';
 
+    showElement(NEW_NOTE_BUTTON);
 }
 
 /**
@@ -117,9 +126,9 @@ function hideNote() {
 function toggleNoteList() {
     // TODO: use "hidden" class with short animation?
     if (note_list_open) {
-        HAMBURGER_MENU.style.visibility = 'hidden';
+        hideElement(HAMBURGER_MENU);
     } else {
-        HAMBURGER_MENU.style.visibility = 'initial';
+        showElement(HAMBURGER_MENU)
     }
 
     note_list_open = !note_list_open;
@@ -129,15 +138,15 @@ function toggleNoteList() {
  * Create a new note.
  */
 function saveNote() {
-    // TODO: Reload note area to view their new note via `toggleNoteArea(true, title)`
-    title = NOTE_TITLE.value.trim();
+
+    const title = NOTE_TITLE.value.trim();
 
     if (title == '') {
         alert('Please enter a title!');
         return;
     }
 
-    content = NOTE_CONTENT.value;
+    const content = NOTE_CONTENT.value;
 
     if (content == '') {
         alert('Please enter content!');
@@ -163,10 +172,10 @@ function saveNote() {
 
 /**
  * List all note titles in an HTML list.
- * This will directly output an HTML string which can be used in an elements `innerHtml`
  */
 function listNotes() {
-    output = '';
+
+    let output = '';
 
     noteArray.forEach(note => {
         output += `<li class="note-list-item" onclick="viewNote('${note.title}')">${note.title}</li>`;
@@ -176,20 +185,28 @@ function listNotes() {
 }
 
 /**
- * Get content for the note stored with the supplied title when a note is clicked on side list.
+ * Get note object for the note stored with the supplied title.
  * Will return `undefined` if note does not exist.
  * 
  * @param {String} title Title of note to find
  */
 function getNoteByTitle(title) {
 
-    for (note of noteArray) {
+    for (const note of noteArray) {
         if (note.title == title) {
             return note;
         }
     }
 
     return undefined;
+}
+
+function hideElement(element) {
+    element.style.visibility = 'hidden';
+}
+
+function showElement(element) {
+    element.style.visibility = 'initial';
 }
 
 /**
@@ -202,20 +219,20 @@ function getNoteByTitle(title) {
 window.onload = () => {
     // TODO: use `getTheme()` to get theme string name and load into theme button
     HAMBURGER_MENU = document.getElementById('hamburger-menu');
-    HAMBURGER_MENU.style.visibility = 'hidden';
+    hideElement(HAMBURGER_MENU);
 
     NEW_NOTE_BUTTON = document.getElementById('new-note-button');
 
     NEW_NOTE = document.getElementById('new-note');
-    NEW_NOTE.style.visibility = 'hidden';
+    hideElement(NEW_NOTE);
 
     NOTE_LIST_ITEMS = document.getElementById('note-list-items');
 
-    NOTE_TITLE = document.getElementById('note_title');
-    NOTE_CONTENT = document.getElementById('note_content');
+    NOTE_TITLE = document.getElementById('note-title');
+    NOTE_CONTENT = document.getElementById('note-content');
 
     NOTE_VIEW = document.getElementById('note-view');
-    NOTE_VIEW.style.visibility = 'hidden';
+    hideElement(NOTE_VIEW);
     NOTE_VIEW_TITLE = document.getElementById('note-view-title');
     NOTE_VIEW_CONTENT = document.getElementById('note-view-content');
 
