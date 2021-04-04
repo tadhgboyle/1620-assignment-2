@@ -11,6 +11,7 @@ let NOTE_CONTENT = null;
 let NOTE_VIEW = null;
 let NOTE_VIEW_TITLE = null;
 let NOTE_VIEW_CONTENT = null;
+let THEME_BUTTON = null;
 
 /**
  * Whether the notepad area and buttons are shown.
@@ -50,17 +51,19 @@ let theme = 'light';
 
 /**
  * Toggle the application's colour theme.
- * Can be either light or dark.
  */
 function toggleTheme() {
-    // Set `theme` to opposite of what it is currently
-}
 
-/**
- * Get the application's current colour theme name.
- */
-function getTheme() {
-    // Return `theme` string
+    if (theme == 'light') {
+        theme = 'dark';
+    } else {
+        theme = 'light';
+    }
+
+    // TODO: implement
+    document.body.classList.toggle('dark-theme');
+
+    THEME_BUTTON.value = `theme: ${theme}`;
 }
 
 /**
@@ -69,7 +72,6 @@ function getTheme() {
  *  @param {Boolean} force If true, this will re-run closing styles, even if it is already closed.
  */
 function toggleNoteArea(force = false) {
-    // TODO: use "hidden" class with short animation?
 
     if (note_area_open || force) {
         hideElement(NEW_NOTE);
@@ -211,14 +213,9 @@ function hideElement(element, fade = true) {
     }
 }
 
-function showElement(element, fade = true) {
-    if (fade) {
-        element.classList.add('show');
-        element.classList.remove('hidden');
-    } else {
-        element.classList.add('show-no-fade');
-        element.classList.remove('hidden-no-fade');
-    }
+function showElement(element) {
+    element.classList.add('show');
+    element.classList.remove('hidden');
 }
 
 /**
@@ -230,6 +227,10 @@ function showElement(element, fade = true) {
  */
 window.onload = () => {
     // TODO: use `getTheme()` to get theme string name and load into theme button
+
+    THEME_BUTTON = document.getElementById('theme-button');
+    THEME_BUTTON.value = `theme: ${theme}`;
+
     HAMBURGER_MENU = document.getElementById('hamburger-menu');
     hideElement(HAMBURGER_MENU, false);
 
