@@ -17,18 +17,18 @@ let THEME_BUTTON = null;
  * Whether the notepad area and buttons are shown.
  * If false, the `NEW_NOTE_BUTTON` div will be shown instead
  */
-let note_area_open = false;
+let NOTE_AREA_OPEN = false;
 
 /**
  * Whether the hamburger menu sidebar is shown.
  */
-let note_list_open = false;
+let NOTE_LIST_OPEN = false;
 
 /**
  * Array for note storage.
  * Hardcoded 3 notes.
  */
-const noteArray = [
+const NOTE_ARRAY = [
     {
         title: 'Note 1',
         content: 'I am note 1 :D'
@@ -95,7 +95,7 @@ function renderTheme() {
  */
 function toggleNoteArea(force = false) {
 
-    if (note_area_open || force) {
+    if (NOTE_AREA_OPEN || force) {
         hideElement(NEW_NOTE);
         showElement(NEW_NOTE_BUTTON);
     } else {
@@ -106,11 +106,11 @@ function toggleNoteArea(force = false) {
     hideElement(NOTE_VIEW);
 
     if (force) {
-        note_area_open = false;
+        NOTE_AREA_OPEN = false;
         return;
     }
 
-    note_area_open = !note_area_open;
+    NOTE_AREA_OPEN = !NOTE_AREA_OPEN;
 }
 
 /**
@@ -149,13 +149,13 @@ function hideNote() {
  */
 function toggleNoteList() {
 
-    if (note_list_open) {
+    if (NOTE_LIST_OPEN) {
         hideElement(HAMBURGER_MENU);
     } else {
         showElement(HAMBURGER_MENU)
     }
 
-    note_list_open = !note_list_open;
+    NOTE_LIST_OPEN = !NOTE_LIST_OPEN;
 }
 
 /**
@@ -182,7 +182,7 @@ function saveNote() {
         return;
     }
 
-    noteArray.push({
+    NOTE_ARRAY.push({
         title: title,
         content: content
     });
@@ -201,7 +201,7 @@ function listNotes() {
 
     let output = '';
 
-    noteArray.forEach(note => {
+    NOTE_ARRAY.forEach(note => {
         output += `<li class="note-list-item" onclick="viewNote('${note.title}')">${note.title}</li>`;
     });
 
@@ -216,7 +216,7 @@ function listNotes() {
  */
 function getNoteByTitle(title) {
 
-    for (const note of noteArray) {
+    for (const note of NOTE_ARRAY) {
         if (note.title == title) {
             return note;
         }

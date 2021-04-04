@@ -13,6 +13,16 @@
 <body>
 
     <nav>
+        <!-- Clicking this will open the hamburger-menu -->
+        <!-- TODO: rotate 90 degrees on hover? -->
+        <div class="hamburger-button" id="hamburger-button">
+            <div onclick="toggleNoteList();">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+        </div>
+        
         <ul class="nav">
             <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">about</a></li>
             <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">docs</a></li>
@@ -23,18 +33,7 @@
 
     <section class="wrapper">
 
-        <!-- Clicking this will open the hamburger-menu -->
-        <!-- TODO: rotate 90 degrees on hover? -->
-        <div class="hamburger-button" id="hamburger-button">
-            <div onclick="toggleNoteList();">
-                <div class="line"></div>
-                <div class="line"></div>
-                <div class="line"></div>
-            </div>
-        </div>
-
         <!-- To be hidden when page initially loads -->
-        <!-- TODO: Move into nav -->
         <div class="hamburger-menu" id="hamburger-menu">
             <p onclick="toggleNoteList();"><strong>my notes</strong> [x]</p>
             <ul class="note-list">

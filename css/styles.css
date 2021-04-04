@@ -176,6 +176,8 @@ pre {
 .hamburger-button {
     grid-area: b;
     padding-left: 10px;
+    padding-top: 4px;
+    position: absolute;
 }
 
 .hamburger-button>div {
