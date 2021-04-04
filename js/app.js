@@ -62,7 +62,7 @@ function toggleTheme() {
 
     document.documentElement.setAttribute('data-theme', theme);
 
-    THEME_BUTTON.value = `theme: ${theme}`;
+    setValue(THEME_BUTTON, `theme: ${theme}`);
 }
 
 /**
@@ -104,8 +104,8 @@ function viewNote(title) {
 
     const note = getNoteByTitle(title);
 
-    NOTE_VIEW_TITLE.innerHTML = note.title;
-    NOTE_VIEW_CONTENT.innerHTML = note.content;
+    setValue(NOTE_VIEW_TITLE, note.title, true);
+    setValue(NOTE_VIEW_CONTENT, note.content, true);
 }
 
 /**
@@ -115,8 +115,8 @@ function viewNote(title) {
 function hideNote() {
 
     hideElement(NOTE_VIEW);
-    NOTE_VIEW_TITLE.innerHTML = '';
-    NOTE_VIEW_CONTENT.innerHTML = '';
+    setValue({ element: NOTE_VIEW_TITLE, html: true });
+    setValue({ element: NOTE_VIEW_CONTENT, html: true });
 
     showElement(NEW_NOTE_BUTTON);
 }
@@ -164,8 +164,8 @@ function saveNote() {
         content: content
     });
 
-    NOTE_TITLE.value = '';
-    NOTE_CONTENT.value = '';
+    setValue(NOTE_TITLE);
+    setValue(NOTE_CONTENT);
 
     listNotes();
     viewNote(title);
@@ -182,7 +182,7 @@ function listNotes() {
         output += `<li class="note-list-item" onclick="viewNote('${note.title}')">${note.title}</li>`;
     });
 
-    NOTE_LIST_ITEMS.innerHTML = output;
+    setValue(NOTE_LIST_ITEMS, output, true);
 }
 
 /**
@@ -202,6 +202,14 @@ function getNoteByTitle(title) {
     return undefined;
 }
 
+/**
+ * Hide this element.
+ * If `fade` is true, it will apply CSS classes to use transitions,
+ * otherwise it will use CSS classes with no transistions.
+ * 
+ * @param {Element} element 
+ * @param {Boolean} fade 
+ */
 function hideElement(element, fade = true) {
     if (fade) {
         element.classList.add('hidden');
@@ -212,9 +220,30 @@ function hideElement(element, fade = true) {
     }
 }
 
+/**
+ * Show this element.
+ * 
+ * @param {Element} element 
+ */
 function showElement(element) {
     element.classList.add('show');
     element.classList.remove('hidden');
+}
+
+/**
+ * Set an element's contents to provided value.
+ * If `html` is true, it will use the `innerHTML` property instead of `value`.
+ * 
+ * @param {Element} element 
+ * @param {String} value 
+ * @param {Boolean} html 
+ */
+function setValue(element, value = '', html = false) {
+    if (html) {
+        element.innerHTML = value;
+    } else {
+        element.value = value;
+    }
 }
 
 /**
@@ -227,7 +256,7 @@ function showElement(element) {
 window.onload = () => {
 
     THEME_BUTTON = document.getElementById('theme-button');
-    THEME_BUTTON.value = `theme: ${theme}`;
+    setValue(THEME_BUTTON, `theme: ${theme}`);
 
     HAMBURGER_MENU = document.getElementById('hamburger-menu');
     hideElement(HAMBURGER_MENU, false);
