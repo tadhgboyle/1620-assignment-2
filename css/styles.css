@@ -55,6 +55,17 @@ nav>ul {
     margin: 0 10px;
 }
 
+.nav>li>input {
+    border: 2px solid var(--secondary-background);
+    background-color: var(--main-background);
+    color: var(--main-text);
+    padding: 10px 15px;
+    width: 150px;
+    font-size: 16px;
+    font-family: 'Roboto Mono', monospace;
+    cursor: pointer;
+}
+
 /* Create 3 columns for our main section */
 
 .wrapper {
