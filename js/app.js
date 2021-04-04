@@ -124,7 +124,7 @@ function hideNote() {
  * Toggle visibility of the note list sidebar
  */
 function toggleNoteList() {
-    // TODO: use "hidden" class with short animation?
+
     if (note_list_open) {
         hideElement(HAMBURGER_MENU);
     } else {
@@ -201,12 +201,24 @@ function getNoteByTitle(title) {
     return undefined;
 }
 
-function hideElement(element) {
-    element.style.visibility = 'hidden';
+function hideElement(element, fade = true) {
+    if (fade) {
+        element.classList.add('hidden');
+        element.classList.remove('show');
+    } else {
+        element.classList.add('hidden-no-fade');
+        element.classList.remove('show-no-fade');
+    }
 }
 
-function showElement(element) {
-    element.style.visibility = 'initial';
+function showElement(element, fade = true) {
+    if (fade) {
+        element.classList.add('show');
+        element.classList.remove('hidden');
+    } else {
+        element.classList.add('show-no-fade');
+        element.classList.remove('hidden-no-fade');
+    }
 }
 
 /**
@@ -219,12 +231,12 @@ function showElement(element) {
 window.onload = () => {
     // TODO: use `getTheme()` to get theme string name and load into theme button
     HAMBURGER_MENU = document.getElementById('hamburger-menu');
-    hideElement(HAMBURGER_MENU);
+    hideElement(HAMBURGER_MENU, false);
 
     NEW_NOTE_BUTTON = document.getElementById('new-note-button');
 
     NEW_NOTE = document.getElementById('new-note');
-    hideElement(NEW_NOTE);
+    hideElement(NEW_NOTE, false);
 
     NOTE_LIST_ITEMS = document.getElementById('note-list-items');
 
@@ -232,7 +244,7 @@ window.onload = () => {
     NOTE_CONTENT = document.getElementById('note-content');
 
     NOTE_VIEW = document.getElementById('note-view');
-    hideElement(NOTE_VIEW);
+    hideElement(NOTE_VIEW, false);
     NOTE_VIEW_TITLE = document.getElementById('note-view-title');
     NOTE_VIEW_CONTENT = document.getElementById('note-view-content');
 

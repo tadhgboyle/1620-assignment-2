@@ -106,6 +106,7 @@ nav>ul {
 }
 
 /* pre tag styling from https://www.longren.io/wrapping-text-inside-pre-tags/ */
+
 pre {
     white-space: pre-wrap;
     white-space: -moz-pre-wrap;
@@ -193,6 +194,28 @@ footer {
     bottom: 0;
     text-align: center;
     padding: 15px;
+}
+
+.hidden-no-fade {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.show-no-fade {
+    visibility: visible;
+    opacity: 1;
+}
+
+.hidden {
+    transition: visibility 300ms, opacity 300ms;
+    visibility: hidden;
+    opacity: 0
+}
+
+.show {
+    transition: visibility 300ms, opacity 300ms;
+    visibility: visible;
+    opacity: 1
 }
 
 @media (max-width: 600px) {
