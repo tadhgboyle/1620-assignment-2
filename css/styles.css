@@ -8,6 +8,14 @@
     --delete-button: #eb6f92;
 }
 
+:root {
+    --main-background-dark: #26233a;
+    --secondary-background-dark: #6e6a86;
+    --main-text-dark: #e0def4;
+    --secondary-text-dark: #f2e9de;
+    --textarea-background-dark: #9893a5;
+}
+
 /* Zeroing */
 
 * {
@@ -195,6 +203,62 @@ footer {
     text-align: center;
     padding: 15px;
 }
+
+/* Dark mode impl */
+
+body.dark-theme {
+    background-color: var(--main-background-dark);
+}
+
+body.dark-theme p, body.dark-theme a, body.dark-theme li, body.dark-theme button {
+    color: var(--main-text-dark);
+}
+
+body.dark-theme a:hover {
+    color: var(--secondary-text-dark);
+}
+
+body.dark-theme>nav {
+    background-color: var(--secondary-background-dark);
+}
+
+body.dark-theme .note-area>textarea:focus, body.dark-theme .note-area>input:focus {
+    outline: 3px solid var(--secondary-background-dark);
+}
+
+body.dark-theme pre {
+    color: var(--main-text-dark);
+}
+
+body.dark-theme .note-area>textarea, body.dark-theme .note-area>input {
+    background-color: var(--textarea-background-dark);
+    color: var(--secondary-text-dark);
+}
+
+/* For some reason we need all the styles copied here to make it display properly while on dark mode */
+body.dark-theme .plus {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(var(--main-text-dark), var(--main-text-dark)), linear-gradient(var(--main-text-dark), var(--main-text-dark)), var(--main-background-dark);
+    background-position: center;
+    background-size: 50% 2px, 2px 50%;
+    background-repeat: no-repeat;
+    float: left;
+}
+
+body.dark-theme .hamburger-menu {
+    background-color: var(--textarea-background-dark);
+}
+
+body.dark-theme .line {
+    background-color: var(--secondary-text-dark);
+}
+
+body.dark-theme>footer {
+    background-color: var(--secondary-background-dark);
+}
+
+/* Util functions for hiding + showing elements. no-fade classes used for initial page load */
 
 .hidden-no-fade {
     visibility: hidden;

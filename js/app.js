@@ -60,7 +60,6 @@ function toggleTheme() {
         theme = 'light';
     }
 
-    // TODO: implement
     document.body.classList.toggle('dark-theme');
 
     THEME_BUTTON.value = `theme: ${theme}`;
@@ -226,7 +225,6 @@ function showElement(element) {
  *     - Set the theme switcher button text
  */
 window.onload = () => {
-    // TODO: use `getTheme()` to get theme string name and load into theme button
 
     THEME_BUTTON = document.getElementById('theme-button');
     THEME_BUTTON.value = `theme: ${theme}`;
