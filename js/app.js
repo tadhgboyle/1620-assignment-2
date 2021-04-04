@@ -60,7 +60,7 @@ function toggleTheme() {
         theme = 'light';
     }
 
-    document.body.classList.toggle('dark-theme');
+    document.documentElement.setAttribute('data-theme', theme);
 
     THEME_BUTTON.value = `theme: ${theme}`;
 }
