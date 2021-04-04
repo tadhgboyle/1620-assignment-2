@@ -46,9 +46,23 @@ const noteArray = [
 /**
  * Default theme to use when page loads.
  * Can be either 'light' or 'dark'.
- * Whatever this is set to is the default for when the page loads.
+ * Whatever this is set to is the fallback for when the page loads.
+ * OS colour preference will override this.
  */
 let THEME = 'light';
+
+
+function setDefaultTheme() {
+    let scheme = 'light';
+
+    if (window.matchMedia) {
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            scheme = 'dark';
+        }
+    }
+    
+    THEME = scheme;
+}
 
 /**
  * Toggle the application's colour theme.
@@ -259,8 +273,8 @@ function setValue(element, value = '', html = false) {
  * When the page loads:
  *     - Initialize our element variables for easy reuse
  *     - Hide elements which require being manually opened
+ *     - Get system colour scheme preference + listen for updates
  *     - Set the sidebar of all notes
- *     - Set the theme switcher button text
  */
 window.onload = () => {
 
@@ -284,6 +298,15 @@ window.onload = () => {
     NOTE_VIEW_TITLE = document.getElementById('note-view-title');
     NOTE_VIEW_CONTENT = document.getElementById('note-view-content');
 
+    setDefaultTheme();
     renderTheme();
+
+    if (window.matchMedia) {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+            setDefaultTheme();
+            renderTheme();
+        });
+    }
+
     listNotes();
 }
