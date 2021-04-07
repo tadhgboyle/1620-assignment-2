@@ -1,4 +1,3 @@
-
 /**
  * HTML element variables
  */
@@ -44,15 +43,16 @@ const NOTE_ARRAY = [
 ];
 
 /**
- * Default theme to use when page loads.
+ * Theme to use when page loads.
  * Can be either 'light' or 'dark'.
- * Whatever this is set to is the fallback for when the page loads.
- * OS colour preference will override this.
  */
-let THEME = 'light';
+let THEME = null;
 
-
+/**
+ * Set the `THEME` to 'light' by default or 'dark' if their OS prefers dark mode.
+ */
 function setDefaultTheme() {
+
     let scheme = 'light';
 
     if (window.matchMedia) {
@@ -65,7 +65,7 @@ function setDefaultTheme() {
 }
 
 /**
- * Toggle the application's colour theme.
+ * Toggle the application's colour theme + re-render the page.
  */
 function toggleTheme() {
 
@@ -159,7 +159,8 @@ function toggleNoteList() {
 }
 
 /**
- * Create a new note.
+ * Save the note. 
+ * Validates input, reloads sidebar, loads note view area
  */
 function saveNote() {
 
@@ -234,6 +235,7 @@ function getNoteByTitle(title) {
  * @param {Boolean} fade 
  */
 function hideElement(element, fade = true) {
+
     if (fade) {
         element.classList.add('hidden');
         element.classList.remove('show');
@@ -249,6 +251,7 @@ function hideElement(element, fade = true) {
  * @param {Element} element 
  */
 function showElement(element) {
+
     element.classList.add('show');
     element.classList.remove('hidden');
 }
@@ -262,6 +265,7 @@ function showElement(element) {
  * @param {Boolean} html 
  */
 function setValue(element, value = '', html = false) {
+
     if (html) {
         element.innerHTML = value;
     } else {
